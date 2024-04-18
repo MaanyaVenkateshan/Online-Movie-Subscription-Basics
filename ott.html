@@ -1,0 +1,93 @@
+<html>
+<head>
+<title>Online Movie Platform Subscription Registration</title>
+</head>
+<body>
+<h1>Online Movie Platform Subscription Registration</h1>
+
+ 
+ <form id="registrationForm">
+ <label for="name">Name:</label>
+ <input type="text" id="name" name="name" required><br><br>
+
+ <label for="mobileNumber">Mobile Number:</label>
+ <input type="tel" id="mobileNumber" name="mobileNumber" pattern="[0-9]{10}" title=
+"Enter a valid 10-digit mobile number" required><br><br>
+ 
+ <label for="userId">User ID:</label>
+ <input type="text" id="userId" name="userId" required><br><br>
+
+ <label for="password">Password:</label>
+ <input type="password" id="password" name="password" required><br><br>
+ 
+ <label for="confirmPassword">Confirm Password:</label>
+ <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+ 
+<label>Subscription Plan:</label><br>
+ <input type="radio" id="oneMonth" name="plan" value="oneMonth">
+ <label for="oneMonth">1 Month</label><br>
+ 
+ <input type="radio" id="sixMonths" name="plan" value="sixMonths">
+ <label for="sixMonths">6 Months</label><br>
+ 
+ <input type="radio" id="oneYear" name="plan" value="oneYear">
+ <label for="oneYear">1 Year</label><br><br>
+ 
+ <button type="submit">Register</button>
+ </form>
+ 
+ <div id="billDetails" style="display: none;">
+ <h3>Subscription Bill Details</h3>
+ <p id="totalBill"></p>
+ </div>
+ 
+ <script>
+ document.getElementById("registrationForm").addEventListener("submit", function(event)
+{
+ event.preventDefault();
+ 
+ var name = document.getElementById("name").value;
+ var mobileNumber = document.getElementById("mobileNumber").value;
+ var userId = document.getElementById("userId").value;
+ var password = document.getElementById("password").value;
+ var confirmPassword = document.getElementById("confirmPassword").value;
+ var plan = document.querySelector('input[name="plan"]:checked').value;
+ 
+ if (password !== confirmPassword)
+ {
+ alert("Passwords do not match.");
+ return;
+ }
+ 
+ var discount = 0;
+ var planName = "";
+ 
+ 
+ if (plan === "oneMonth") {
+ discount = 2;
+ planName = "1 Month";
+ } else if (plan === "sixMonths") {
+ discount = 6;
+ planName = "6 Months";
+ } else if (plan === "oneYear") {
+ discount = 15;
+ planName = "1 Year";
+ }
+ 
+ var totalBill = 100; 
+ 
+
+ totalBill -= (totalBill * discount) / 100;
+ 
+ var message = "Thank you for registering, " + name + "! Your mobile number is " +
+mobileNumber + ". Your user ID is " + userId + ". You have subscribed for " +
+planName + ". Your total bill after " + discount + "% discount is Rs " +
+totalBill.toFixed(2) + ".";
+ 
+ document.getElementById("totalBill").textContent = message;
+ document.getElementById("billDetails").style.display = "block";
+ });
+ </script>
+ 
+ </body>
+ </html>
